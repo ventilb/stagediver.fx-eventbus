@@ -30,6 +30,51 @@
     <packaging>bundle</packaging>
 
     <name>stagediver.fx - IEW Eventbus Core</name>
+    <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
+    <description>
+        The stagediver.fx - IEW Eventbus module extends the stagediver.fx RCP
+        platform with an event bus system. The goal is to implement a simple
+        notification platform for the RCP components.
+    </description>
+
+    <organization>
+        <name>Manuel Schulze</name>
+        <url>https://github.com/ventilb</url>
+    </organization>
+
+    <scm>
+        <connection>https://github.com/ventilb/stagediver.fx-eventbus.git</connection>
+        <tag>master</tag>
+        <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/ventilb/stagediver.fx-eventbus/issues/</url>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>Refer to NOTICE for third party library license information.</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>ms</id>
+            <name>Manuel Schulze</name>
+            <email>manuel_schulze@i-entwicklung.de</email>
+            <url>https://github.com/ventilb</url>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>

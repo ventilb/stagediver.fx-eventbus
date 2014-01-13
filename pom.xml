@@ -34,7 +34,7 @@
     <packaging>pom</packaging>
 
     <name>stagediver.fx - IEW Eventbus</name>
-    <url>https://github.com/ventilb</url>
+    <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
     <description>
         The stagediver.fx - IEW Eventbus module extends the stagediver.fx RCP
         platform with an event bus system. The goal is to implement a simple
@@ -45,6 +45,17 @@
         <name>Manuel Schulze</name>
         <url>https://github.com/ventilb</url>
     </organization>
+
+    <scm>
+        <connection>https://github.com/ventilb/stagediver.fx-eventbus.git</connection>
+        <tag>master</tag>
+        <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/ventilb/stagediver.fx-eventbus/issues/</url>
+    </issueManagement>
 
     <licenses>
         <license>
