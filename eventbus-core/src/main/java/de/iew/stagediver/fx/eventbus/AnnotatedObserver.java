@@ -17,6 +17,8 @@
 package de.iew.stagediver.fx.eventbus;
 
 import org.osgi.service.event.Event;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
@@ -24,10 +26,11 @@ import java.lang.reflect.Method;
  * Implements a model to hold an observer configuration. An observer requires the target object and the method to call
  * on the target object when the observer is about to be notified.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 14:02
  */
 public class AnnotatedObserver {
+    private static Logger log = LoggerFactory.getLogger(AnnotatedObserver.class);
 
     private final Object eventTarget;
 
@@ -52,13 +55,9 @@ public class AnnotatedObserver {
         this.topic = topic;
     }
 
-    public void notify(Event event) {
-        try {
-            // TODO Signatur auswerten
-            this.eventMethod.invoke(this.eventTarget, event);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void notify(Event event) throws Exception {
+        // TODO Signatur auswerten
+        this.eventMethod.invoke(this.eventTarget, event);
     }
 
     @Override

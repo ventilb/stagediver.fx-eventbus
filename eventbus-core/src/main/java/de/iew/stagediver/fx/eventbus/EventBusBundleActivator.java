@@ -18,21 +18,26 @@ package de.iew.stagediver.fx.eventbus;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The bundle activator. Will be called by the OSGi container upon bundle start and stop.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 13:23
  */
 public class EventBusBundleActivator implements BundleActivator {
+
+    private static Logger log = LoggerFactory.getLogger(EventBusBundleActivator.class);
+
     @Override
     public void start(BundleContext context) throws Exception {
-        System.out.println("Bundle EventBusBundleActivator started");
+        log.debug("de.iew.stagediver.fx.eventbus Bundle starting");
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
-        System.out.println("Bundle EventBusBundleActivator stopped");
+        log.debug("de.iew.stagediver.fx.eventbus Bundle stopping");
     }
 }

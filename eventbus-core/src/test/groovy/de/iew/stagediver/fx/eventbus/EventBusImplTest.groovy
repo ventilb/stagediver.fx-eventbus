@@ -24,7 +24,7 @@ import static org.junit.Assert.assertThat
 /**
  * Unit-Tests for the {@link EventBusImpl} implementation.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 16:25
  */
 class EventBusImplTest extends GroovyTestCase {

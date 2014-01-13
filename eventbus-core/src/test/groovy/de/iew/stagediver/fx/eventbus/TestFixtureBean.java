@@ -21,7 +21,7 @@ import de.iew.stagediver.fx.eventbus.api.Observer;
 /**
  * A simple Pojo to act as a test fixture in the {@link de.iew.stagediver.fx.eventbus.Inspector} tests.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 14:35
  */
 public class TestFixtureBean {

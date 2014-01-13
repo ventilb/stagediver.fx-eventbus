@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * An Annotation to mark a method as an observer method or event target method. The annotated method will be called if
  * a matching event is dispatched.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 14:30
  */
 @Target(ElementType.METHOD)

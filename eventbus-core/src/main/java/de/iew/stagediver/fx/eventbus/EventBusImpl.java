@@ -25,6 +25,8 @@ import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -32,7 +34,7 @@ import java.util.*;
 /**
  * The implementation of the {@link de.iew.stagediver.fx.eventbus.api.EventBusService} interface.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 03:44
  */
 @Component
@@ -42,11 +44,13 @@ import java.util.*;
 })
 public class EventBusImpl implements EventHandler, EventBusService {
 
+    private static Logger log = LoggerFactory.getLogger(EventBusImpl.class);
+
     private final Hashtable<String, Set<AnnotatedObserver>> observers = new Hashtable<>();
 
     @Activate
     public void init() {
-        System.out.println("EventBusImpl.init()");
+        log.debug("de.iew.stagediver.fx.eventbus.EventBusImpl#init() called");
     }
 
     @Override
@@ -155,7 +159,12 @@ public class EventBusImpl implements EventHandler, EventBusService {
         }
 
         for (AnnotatedObserver observer : observers) {
-            observer.notify(event);
+            try {
+                observer.notify(event);
+            } catch (Exception e) {
+                log.error("Exception notifying observer {}", observer, e);
+                // TODO Das Event sollte irgendwie als Fehlerhaft weiter geschickt werden
+            }
         }
 
     }

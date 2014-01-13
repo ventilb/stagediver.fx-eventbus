@@ -24,7 +24,7 @@ import java.util.Set;
 /**
  * Inspector class to extract the information required to setup observers and topics for objects.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 14:02
  */
 public class Inspector {

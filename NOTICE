@@ -25,3 +25,14 @@
 
 * The OSGi libraries used in this project are licensed under the terms of the
   Apache 2.0 license.
+
+* The Simple Logging Facade for Java - SLF4J (http://www.slf4j.org/) is
+  licensed under the terms of the MIT license.
+
+* The PAX logging implementation is licensed under the terms of the Apache 2.0
+  license.
+  Please refer to: https://github.com/ops4j/org.ops4j.pax.logging/blob/master/LICENSE.txt
+
+* Log4j (http://logging.apache.org/log4j/1.2/) is licensed under the the
+  terms of the Apache 2.0 license.
+  Please refer to: http://logging.apache.org/log4j/1.2/license.html

@@ -19,7 +19,7 @@ package de.iew.stagediver.fx.eventbus.api;
 /**
  * Declares a service interface to implement an event bus.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 13:06
  */
 public interface EventBusService {

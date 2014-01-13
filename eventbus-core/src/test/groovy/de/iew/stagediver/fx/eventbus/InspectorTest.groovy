@@ -27,7 +27,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.*
 /**
  * Unit-Tests for the {@link Inspector} functions.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 14:22
  */
 class InspectorTest extends GroovyTestCase {

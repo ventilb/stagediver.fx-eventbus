@@ -19,7 +19,7 @@ package de.iew.stagediver.fx.eventbus.api;
 /**
  * Declares an interface to deal with topic settings.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 16:32
  */
 public interface Topic {

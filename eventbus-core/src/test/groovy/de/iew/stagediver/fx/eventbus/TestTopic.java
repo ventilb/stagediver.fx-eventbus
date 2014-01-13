@@ -19,7 +19,7 @@ package de.iew.stagediver.fx.eventbus;
 /**
  * Simple test topic.
  *
- * @author Manuel Schulze <manuel_schulze@i-entwicklung.de>
+ * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 15:36
  */
 public class TestTopic {
