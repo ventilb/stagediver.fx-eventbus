@@ -17,6 +17,7 @@
 package de.iew.stagediver.fx.eventbus;
 
 import de.iew.stagediver.fx.eventbus.api.Observer;
+import org.osgi.service.event.Event;
 
 /**
  * A simple Pojo to act as a test fixture in the {@link de.iew.stagediver.fx.eventbus.Inspector} tests.
@@ -52,6 +53,21 @@ public class TestFixtureBean {
 
     @Observer
     public void anObserverMethodWithPrimitiveTopic(int topic) {
+
+    }
+
+    @Observer(notifyInPlatformThread = true)
+    public void anObserverMethodWithAnnotatedTopicNotifyInPlatformThread() {
+
+    }
+
+    @Observer(notifyInPlatformThread = false)
+    public void anObserverMethodWithAnnotatedTopicNotifyNotInPlatformThread() {
+
+    }
+
+    @Observer(topic = "TestFixtureBean.anObserverMethodWithAnnotatedTopicAndEvent")
+    public void anObserverMethodWithAnnotatedTopicAndEvent(Event event) {
 
     }
 }

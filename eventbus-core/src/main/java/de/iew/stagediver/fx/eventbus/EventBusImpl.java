@@ -18,6 +18,7 @@ package de.iew.stagediver.fx.eventbus;
 
 import de.iew.stagediver.fx.eventbus.api.EventBusService;
 import de.iew.stagediver.fx.eventbus.api.Topic;
+import javafx.application.Platform;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Property;
@@ -61,6 +62,7 @@ public class EventBusImpl implements EventHandler, EventBusService {
         Collection<AnnotatedObserver> topicObservers;
         for (AnnotatedObserver ao : annotatedObservers) {
             setupTopic(ao);
+            setupNotifyInPlatformThread(ao);
             topicObservers = getOrCreateObserversForTopic(ao.getTopic());
 
             topicObservers.add(ao);
@@ -103,6 +105,12 @@ public class EventBusImpl implements EventHandler, EventBusService {
         if (observers != null) {
             observers.remove(observer);
         }
+    }
+
+    // TODO Die folgenden beiden Methoden sind Unsinn. Das Ganze muss bei der Inspektion ausgewertet werden oder wenigstens einmalig und die Werte als POJO zurückgegeben werden
+    public void setupNotifyInPlatformThread(AnnotatedObserver ao) {
+        boolean notifyInPlatformThread = Inspector.inspectObserverNotifyInPlatformThread(ao);
+        ao.setNotifyInPlatformThread(notifyInPlatformThread);
     }
 
     public void setupTopic(AnnotatedObserver ao) {
@@ -160,12 +168,24 @@ public class EventBusImpl implements EventHandler, EventBusService {
 
         for (AnnotatedObserver observer : observers) {
             try {
-                observer.notify(event);
-            } catch (Exception e) {
-                log.error("Exception notifying observer {}", observer, e);
-                // TODO Das Event sollte irgendwie als Fehlerhaft weiter geschickt werden
+                notifyIfInPlatformThread(observer, event);
+                notifyDefault(observer, event);
+            } catch (Throwable throwable) {
+                log.error("Exception notifying observer {} with event {}", observer, event, throwable);
             }
         }
 
+    }
+
+    protected void notifyIfInPlatformThread(AnnotatedObserver observer, Event event) throws Throwable {
+        if (observer.isNotifyInPlatformThread()) {
+            Platform.runLater(new JavaFXPlatformRunnable(observer, event));
+        }
+    }
+
+    protected void notifyDefault(AnnotatedObserver observer, Event event) throws Throwable {
+        if (!observer.isNotifyInPlatformThread()) {
+            observer.notify(event);
+        }
     }
 }

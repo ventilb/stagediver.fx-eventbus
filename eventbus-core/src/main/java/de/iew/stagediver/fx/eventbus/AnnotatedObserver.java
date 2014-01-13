@@ -38,6 +38,8 @@ public class AnnotatedObserver {
 
     private volatile String topic;
 
+    private volatile boolean notifyInPlatformThread = false;
+
     public AnnotatedObserver(Object eventTarget, Method eventMethod) {
         this.eventTarget = eventTarget;
         this.eventMethod = eventMethod;
@@ -53,6 +55,14 @@ public class AnnotatedObserver {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public boolean isNotifyInPlatformThread() {
+        return notifyInPlatformThread;
+    }
+
+    public void setNotifyInPlatformThread(boolean notifyInPlatformThread) {
+        this.notifyInPlatformThread = notifyInPlatformThread;
     }
 
     public void notify(Event event) throws Exception {

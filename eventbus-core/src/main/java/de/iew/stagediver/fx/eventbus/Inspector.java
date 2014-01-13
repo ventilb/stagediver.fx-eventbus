@@ -75,6 +75,13 @@ public class Inspector {
 //        }
 //    }
 
+    public static boolean inspectObserverNotifyInPlatformThread(final AnnotatedObserver observer) {
+        final Method eventMethod = observer.getEventMethod();
+
+        final Observer annotation = getObserverAnnotation(eventMethod);
+        return annotation.notifyInPlatformThread();
+    }
+
     /**
      * Inspects the topic of the given observer. The inspection is delegated to {@link #inspectTopic(java.lang.reflect.Method)}.
      *

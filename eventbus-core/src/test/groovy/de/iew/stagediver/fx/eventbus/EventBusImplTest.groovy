@@ -17,7 +17,13 @@
 package de.iew.stagediver.fx.eventbus
 
 import de.iew.stagediver.fx.eventbus.api.Topic
+import groovy.mock.interceptor.MockFor
+import groovy.mock.interceptor.StubFor
+import org.hamcrest.CoreMatchers
+import org.hamcrest.collection.IsMapContaining
+import org.osgi.service.event.Event
 
+import static org.hamcrest.CoreMatchers.*
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize
 import static org.junit.Assert.assertThat
 
@@ -32,6 +38,55 @@ class EventBusImplTest extends GroovyTestCase {
 
     def TestFixtureBean testFixtureBean;
 
+    void testHandleEventDispatch() {
+        // Testfix erstellen
+        def Event eventToFire = new Event("TestFixtureBean/anObserverMethodWithAnnotatedTopicAndEvent", Collections.emptyMap())
+
+        def eventMethod = TestFixtureBean.class.getMethod("anObserverMethodWithAnnotatedTopicAndEvent", Event.class)
+        def AnnotatedObserver obs1 = new AnnotatedObserver(testFixtureBean, eventMethod)
+
+        // Test durchführen
+        def notifyIfInPlatformThreadWasCalled = false
+        def notifyDefaultWasCalled = false
+
+        def eventBus = [
+                notifyIfInPlatformThread: { observer, event -> notifyIfInPlatformThreadWasCalled = true },
+                notifyDefault: { observer, event -> notifyDefaultWasCalled = true },
+                getOrCreateObserversForTopic: { topic -> [obs1] }
+        ] as EventBusImpl
+        eventBus.handleEvent(eventToFire)
+
+        // Test auswerten
+        /// Beide Dispatcher werden aufgerufen, weil die if-Anweisung der nicht greift, da wir die Methoden überladen
+        /// haben.
+        assertThat(notifyIfInPlatformThreadWasCalled, is(true))
+        assertThat(notifyDefaultWasCalled, is(true))
+    }
+
+    void testHandleEvent() {
+        // Testfix erstellen
+        def dispatchedEvents = [:]
+
+        def testFixtureBean1 = [anObserverMethodWithAnnotatedTopicAndEvent: { event -> dispatchedEvents["testFixtureBean1"] = event }] as TestFixtureBean
+        def testFixtureBean2 = [anObserverMethodWithAnnotatedTopicAndEvent: { event -> dispatchedEvents["testFixtureBean2"] = event }] as TestFixtureBean
+        def eventMethod = testFixtureBean1.getClass().getMethod("anObserverMethodWithAnnotatedTopicAndEvent", Event.class)
+
+        def AnnotatedObserver obs1 = new AnnotatedObserver(testFixtureBean1, eventMethod)
+        def AnnotatedObserver obs2 = new AnnotatedObserver(testFixtureBean2, eventMethod)
+
+        def Event eventToFire = new Event("TestFixtureBean/anObserverMethodWithAnnotatedTopicAndEvent", Collections.emptyMap())
+
+        // Test durchführen
+        def EventBusImpl eventBus = [
+                getOrCreateObserversForTopic: { topic -> [obs1, obs2] }
+        ] as EventBusImpl
+        eventBus.handleEvent(eventToFire)
+
+        // Test auswerten
+        assertThat dispatchedEvents, IsMapContaining.hasEntry("testFixtureBean1", eventToFire)
+        assertThat dispatchedEvents, IsMapContaining.hasEntry("testFixtureBean2", eventToFire)
+    }
+
     void testRegister() {
         // Testfix erstellen
 
@@ -40,8 +95,8 @@ class EventBusImplTest extends GroovyTestCase {
 
         // Test auswerten
         assertThat testee.getObserversForTopic("TestFixtureBean.anObserverMethodWithAnnotatedTopic"), hasSize(1)
-        assertThat testee.getObserversForTopic(TestTopic.class.getName()), hasSize(1)
-        assertThat testee.getObserversForTopic(Topic.ALL_TOPICS), hasSize(3)
+        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/TestTopic"), hasSize(1)
+        assertThat testee.getObserversForTopic(Topic.ALL_TOPICS), hasSize(5)
     }
 
     void testUnregister() {
@@ -53,7 +108,7 @@ class EventBusImplTest extends GroovyTestCase {
 
         // Test auswerten
         assertThat testee.getObserversForTopic("TestFixtureBean.anObserverMethodWithAnnotatedTopic"), hasSize(0)
-        assertThat testee.getObserversForTopic(TestTopic.class.getName()), hasSize(0)
+        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/TestTopic"), hasSize(0)
         assertThat testee.getObserversForTopic(Topic.ALL_TOPICS), hasSize(0)
     }
 
@@ -68,8 +123,8 @@ class EventBusImplTest extends GroovyTestCase {
 
         // Test auswerten
         assertThat testee.getObserversForTopic("TestFixtureBean.anObserverMethodWithAnnotatedTopic"), hasSize(0)
-        assertThat testee.getObserversForTopic(TestTopic.class.getName()), hasSize(1)
-        assertThat testee.getObserversForTopic(Topic.ALL_TOPICS), hasSize(3)
+        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/TestTopic"), hasSize(1)
+        assertThat testee.getObserversForTopic(Topic.ALL_TOPICS), hasSize(5)
     }
 
     @Override

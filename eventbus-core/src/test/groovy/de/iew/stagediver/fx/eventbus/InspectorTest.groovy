@@ -35,6 +35,30 @@ class InspectorTest extends GroovyTestCase {
     // Testfixture objekt
     def TestFixtureBean testFixtureBean
 
+    void testInspectObserverNotifyInPlatformThread_with_notification_in_platform_thread() {
+        // Testfix erstellen
+        def eventMethod = testFixtureBean.getClass().getMethod("anObserverMethodWithAnnotatedTopicNotifyInPlatformThread")
+        def observer = new AnnotatedObserver(testFixtureBean, eventMethod)
+
+        // Test durchführen
+        def actualNotifyInPlatformThread = Inspector.inspectObserverNotifyInPlatformThread(observer)
+
+        // Test auswerten
+        assertThat actualNotifyInPlatformThread, is(true)
+    }
+
+    void testInspectObserverNotifyInPlatformThread_without_notification_in_platform_thread() {
+        // Testfix erstellen
+        def eventMethod = testFixtureBean.getClass().getMethod("anObserverMethodWithAnnotatedTopicNotifyNotInPlatformThread")
+        def observer = new AnnotatedObserver(testFixtureBean, eventMethod)
+
+        // Test durchführen
+        def actualNotifyInPlatformThread = Inspector.inspectObserverNotifyInPlatformThread(observer)
+
+        // Test auswerten
+        assertThat actualNotifyInPlatformThread, is(false)
+    }
+
     void testInspectAnnotatedObservers() {
         // Testfix erstellen
 
@@ -43,12 +67,15 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectAnnotatedObservers(testFixtureBean, observableMethods)
 
         // Test auswerten
-        assertThat observableMethods.size(), is(5)
+        assertThat observableMethods.size(), is(8)
         assertThat observableMethods.findAll { m -> m.eventMethod.name == "aMethodReturning5WithAnnotation" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithAnnotatedTopic" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithObjectTopic" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithArrayTopic" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithPrimitiveTopic" }, hasSize(1)
+        assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithAnnotatedTopicNotifyInPlatformThread" }, hasSize(1)
+        assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithAnnotatedTopicNotifyNotInPlatformThread" }, hasSize(1)
+        assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithAnnotatedTopicAndEvent" }, hasSize(1)
     }
 
     void testInspectAnnotatedObserverMethods() {
@@ -59,12 +86,15 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectAnnotatedObserverMethods(testFixtureBean, observableMethods)
 
         // Test auswerten
-        assertThat observableMethods.size(), is(5)
+        assertThat observableMethods.size(), is(8)
         assertThat observableMethods.findAll { m -> m.name == "aMethodReturning5WithAnnotation" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithAnnotatedTopic" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithObjectTopic" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithArrayTopic" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithPrimitiveTopic" }, hasSize(1)
+        assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithAnnotatedTopicNotifyInPlatformThread" }, hasSize(1)
+        assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithAnnotatedTopicNotifyNotInPlatformThread" }, hasSize(1)
+        assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithAnnotatedTopicAndEvent" }, hasSize(1)
     }
 
     void testGetObserverAnnotation() {

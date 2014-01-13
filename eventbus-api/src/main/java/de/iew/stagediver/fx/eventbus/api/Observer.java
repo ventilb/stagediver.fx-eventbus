@@ -39,4 +39,15 @@ public @interface Observer {
      */
     String topic() default "";
 
+    /**
+     * Flag to indicate that the observer must be notified in the Java FX platform thread.
+     * <p>
+     * This can be useful to build Java FX scene on the scratch as a reaction of the notification in example to popup
+     * a dialog.
+     * </p>
+     *
+     * @return TRUE to notify the observer in the platform thread, FALSE otherwise
+     */
+    boolean notifyInPlatformThread() default false;
+
 }
