@@ -48,6 +48,7 @@
 
     <scm>
         <connection>https://github.com/ventilb/stagediver.fx-eventbus.git</connection>
+        <developerConnection>scm:git:git@github.com:ventilb/stagediver.fx-eventbus.git</developerConnection>
         <tag>master</tag>
         <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
     </scm>
