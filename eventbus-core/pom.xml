@@ -30,51 +30,6 @@
     <packaging>bundle</packaging>
 
     <name>stagediver.fx - IEW Eventbus Core</name>
-    <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
-    <description>
-        The stagediver.fx - IEW Eventbus module extends the stagediver.fx RCP
-        platform with an event bus system. The goal is to implement a simple
-        notification platform for the RCP components.
-    </description>
-
-    <organization>
-        <name>Manuel Schulze</name>
-        <url>https://github.com/ventilb</url>
-    </organization>
-
-    <scm>
-        <connection>https://github.com/ventilb/stagediver.fx-eventbus.git</connection>
-        <tag>master</tag>
-        <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
-    </scm>
-
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/ventilb/stagediver.fx-eventbus/issues/</url>
-    </issueManagement>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>Refer to NOTICE for third party library license information.</comments>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>ms</id>
-            <name>Manuel Schulze</name>
-            <email>manuel_schulze@i-entwicklung.de</email>
-            <url>https://github.com/ventilb</url>
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
 
     <dependencies>
         <dependency>
@@ -83,26 +38,20 @@
         </dependency>
 
         <dependency>
-            <!-- license: MIT (http://slf4j.org/license.html) -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.logging</groupId>
-            <artifactId>pax-logging-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.logging</groupId>
-            <artifactId>pax-logging-service</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.eventadmin</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -141,13 +90,14 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <!--
-                        | Die Klasse, die aufgerufen wird, wenn dieses Bundle vom OSGi Container aktiviert und
-                        | deaktiviert wird. Vergleich mit einer main()-Funktion bei Java-Awendungen.
-                        |
-                        | Pro Bundle darf es genau einen BundleActivator geben.
-                        -->
-                        <Bundle-Activator>de.iew.stagediver.fx.eventbus.EventBusBundleActivator</Bundle-Activator>
+                        <Bundle-Activator>de.iew.stagediver.fx.eventbus.osgi.EventBusBundleActivator</Bundle-Activator>
+                        <Private-Package>de.iew.stagediver.fx.eventbus.services.impl.*</Private-Package>
+                        <Import-Package>
+                            de.iew.stagediver.fx.eventbus.api.*,
+                            org.osgi.*,
+                            org.slf4j.*,
+                            javafx.application.*
+                        </Import-Package>
                     </instructions>
                 </configuration>
             </plugin>

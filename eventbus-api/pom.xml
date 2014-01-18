@@ -30,51 +30,6 @@
     <packaging>bundle</packaging>
 
     <name>stagediver.fx - IEW Eventbus API</name>
-    <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
-    <description>
-        The stagediver.fx - IEW Eventbus module extends the stagediver.fx RCP
-        platform with an event bus system. The goal is to implement a simple
-        notification platform for the RCP components.
-    </description>
-
-    <organization>
-        <name>Manuel Schulze</name>
-        <url>https://github.com/ventilb</url>
-    </organization>
-
-    <scm>
-        <connection>https://github.com/ventilb/stagediver.fx-eventbus.git</connection>
-        <tag>master</tag>
-        <url>https://github.com/ventilb/stagediver.fx-eventbus</url>
-    </scm>
-
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/ventilb/stagediver.fx-eventbus/issues/</url>
-    </issueManagement>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>Refer to NOTICE for third party library license information.</comments>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>ms</id>
-            <name>Manuel Schulze</name>
-            <email>manuel_schulze@i-entwicklung.de</email>
-            <url>https://github.com/ventilb</url>
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
 
     <dependencies>
     </dependencies>
@@ -86,15 +41,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <!--
-                        | Legt die Sichtbarkeit der Pakete fest, die im Bundle enthalten sind. Diese Angabe ist wichtig,
-                        | damit der OSGi Container die Abhängigkeiten auflösen kann.
-                        |
-                        | Beispiel: Der OSGi Container kann de.iew.stagediver.fx.eventbus.api.EventBusService nur
-                        | deshalb finden, weil wir das gesamte Paket hier exportieren.
-                        -->
-                        <Private-Package>de.iew.stagediver.fx.eventbus.*</Private-Package>
-                        <Export-Package>de.iew.stagediver.fx.eventbus.api</Export-Package>
+                        <Export-Package>de.iew.stagediver.fx.eventbus.api.*</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
