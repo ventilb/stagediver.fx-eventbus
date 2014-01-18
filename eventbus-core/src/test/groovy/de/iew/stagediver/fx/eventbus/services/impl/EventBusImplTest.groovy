@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package de.iew.stagediver.fx.eventbus
+package de.iew.stagediver.fx.eventbus.services.impl
 
 import de.iew.stagediver.fx.eventbus.api.Topic
-import groovy.mock.interceptor.MockFor
-import groovy.mock.interceptor.StubFor
-import org.hamcrest.CoreMatchers
 import org.hamcrest.collection.IsMapContaining
 import org.osgi.service.event.Event
 
@@ -28,7 +25,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize
 import static org.junit.Assert.assertThat
 
 /**
- * Unit-Tests for the {@link EventBusImpl} implementation.
+ * Unit-Tests for the {@link de.iew.stagediver.fx.eventbus.services.impl.EventBusImpl} implementation.
  *
  * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 16:25
@@ -95,7 +92,7 @@ class EventBusImplTest extends GroovyTestCase {
 
         // Test auswerten
         assertThat testee.getObserversForTopic("TestFixtureBean.anObserverMethodWithAnnotatedTopic"), hasSize(1)
-        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/TestTopic"), hasSize(1)
+        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/services/impl/TestTopic"), hasSize(1)
         assertThat testee.getObserversForTopic(Topic.ALL_TOPICS), hasSize(5)
     }
 
@@ -108,7 +105,7 @@ class EventBusImplTest extends GroovyTestCase {
 
         // Test auswerten
         assertThat testee.getObserversForTopic("TestFixtureBean.anObserverMethodWithAnnotatedTopic"), hasSize(0)
-        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/TestTopic"), hasSize(0)
+        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/services/impl/TestTopic"), hasSize(0)
         assertThat testee.getObserversForTopic(Topic.ALL_TOPICS), hasSize(0)
     }
 
@@ -123,7 +120,7 @@ class EventBusImplTest extends GroovyTestCase {
 
         // Test auswerten
         assertThat testee.getObserversForTopic("TestFixtureBean.anObserverMethodWithAnnotatedTopic"), hasSize(0)
-        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/TestTopic"), hasSize(1)
+        assertThat testee.getObserversForTopic("de/iew/stagediver/fx/eventbus/services/impl/TestTopic"), hasSize(1)
         assertThat testee.getObserversForTopic(Topic.ALL_TOPICS), hasSize(5)
     }
 

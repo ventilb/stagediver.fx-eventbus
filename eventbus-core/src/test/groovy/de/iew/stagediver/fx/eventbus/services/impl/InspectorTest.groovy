@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.iew.stagediver.fx.eventbus
+package de.iew.stagediver.fx.eventbus.services.impl
 
 import java.lang.reflect.Method
 
@@ -145,7 +145,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectObserverTopicByMethodSignature(eventMethod, actualTopic)
 
         // Test auswerten
-        assertThat actualTopic[0], is("de/iew/stagediver/fx/eventbus/TestTopic")
+        assertThat actualTopic[0], is("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
     }
 
     void testInspectObserverTopicByMethodSignature_with_array_topic() {
@@ -215,7 +215,7 @@ class InspectorTest extends GroovyTestCase {
         def actualTopic = Inspector.inspectObserverTopic(observer)
 
         // Test auswerten
-        assertThat actualTopic, is("de/iew/stagediver/fx/eventbus/TestTopic")
+        assertThat actualTopic, is("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
     }
 
     /**
@@ -243,7 +243,7 @@ class InspectorTest extends GroovyTestCase {
         def actualTopic = Inspector.inspectTopic(eventMethod)
 
         // Test auswerten
-        assertThat actualTopic, is("de/iew/stagediver/fx/eventbus/TestTopic")
+        assertThat actualTopic, is("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
     }
 
     @Override

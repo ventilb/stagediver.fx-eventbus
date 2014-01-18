@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.iew.stagediver.fx.eventbus;
+package de.iew.stagediver.fx.eventbus.services.impl;
 
 /**
  * Simple test topic.

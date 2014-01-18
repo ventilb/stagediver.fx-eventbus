@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.iew.stagediver.fx.eventbus;
+package de.iew.stagediver.fx.eventbus.services.impl;
 
 import org.osgi.service.event.Event;
 import org.slf4j.Logger;

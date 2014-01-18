@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.iew.stagediver.fx.eventbus;
+package de.iew.stagediver.fx.eventbus.services.impl;
 
 import de.iew.stagediver.fx.eventbus.api.EventBusService;
 import de.iew.stagediver.fx.eventbus.api.Topic;
@@ -51,7 +51,7 @@ public class EventBusImpl implements EventHandler, EventBusService {
 
     @Activate
     public void init() {
-        log.debug("de.iew.stagediver.fx.eventbus.EventBusImpl#init() called");
+        log.debug("de.iew.stagediver.fx.eventbus.services.impl.EventBusImpl#init() called");
     }
 
     @Override

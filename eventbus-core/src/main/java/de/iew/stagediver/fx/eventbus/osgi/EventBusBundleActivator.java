@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.iew.stagediver.fx.eventbus;
+package de.iew.stagediver.fx.eventbus.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

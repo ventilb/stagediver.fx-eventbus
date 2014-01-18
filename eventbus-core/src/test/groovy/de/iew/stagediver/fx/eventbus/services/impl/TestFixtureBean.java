@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package de.iew.stagediver.fx.eventbus;
+package de.iew.stagediver.fx.eventbus.services.impl;
 
 import de.iew.stagediver.fx.eventbus.api.Observer;
 import org.osgi.service.event.Event;
 
 /**
- * A simple Pojo to act as a test fixture in the {@link de.iew.stagediver.fx.eventbus.Inspector} tests.
+ * A simple Pojo to act as a test fixture in the {@link de.iew.stagediver.fx.eventbus.services.impl.Inspector} tests.
  *
  * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 14:35
