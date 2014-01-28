@@ -19,40 +19,27 @@ package de.iew.stagediver.fx.eventbus.services.impl;
 import de.iew.stagediver.fx.eventbus.api.EventBusService;
 import de.iew.stagediver.fx.eventbus.api.Topic;
 import javafx.application.Platform;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Service;
 import org.osgi.service.event.Event;
-import org.osgi.service.event.EventConstants;
-import org.osgi.service.event.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Set;
 
 /**
- * The implementation of the {@link de.iew.stagediver.fx.eventbus.api.EventBusService} interface.
+ * The implementation of the {@link EventBusService} interface.
  *
  * @author <a href="mailto:manuel_schulze@i-entwicklung.de">Manuel Schulze</a>
  * @since 12.01.14 - 03:44
  */
-@Component
-@Service(value = {EventBusService.class, EventHandler.class})
-@org.apache.felix.scr.annotations.Properties({
-        @Property(name = EventConstants.EVENT_TOPIC, value = "*")
-})
-public class EventBusImpl implements EventHandler, EventBusService {
+public class EventBusImpl implements EventBusService {
 
     private static Logger log = LoggerFactory.getLogger(EventBusImpl.class);
 
     private final Hashtable<String, Set<AnnotatedObserver>> observers = new Hashtable<>();
-
-    @Activate
-    public void init() {
-        log.debug("de.iew.stagediver.fx.eventbus.services.impl.EventBusImpl#init() called");
-    }
 
     @Override
     public synchronized void register(Object o) {
@@ -132,7 +119,7 @@ public class EventBusImpl implements EventHandler, EventBusService {
      * @param topic The non NULL topic
      * @return the observers or NULL
      */
-    public Collection<AnnotatedObserver> getObserversForTopic(final String topic) {
+    public synchronized Collection<AnnotatedObserver> getObserversForTopic(final String topic) {
         return this.observers.get(topic);
     }
 
@@ -143,7 +130,7 @@ public class EventBusImpl implements EventHandler, EventBusService {
      * @param topic The non NULL topic
      * @return the observer collection (never NULL)
      */
-    public Collection<AnnotatedObserver> getOrCreateObserversForTopic(final String topic) {
+    public synchronized Collection<AnnotatedObserver> getOrCreateObserversForTopic(final String topic) {
         Collection<AnnotatedObserver> observers = getObserversForTopic(topic);
         if (observers == null) {
             observers = new HashSet<>();
@@ -152,29 +139,19 @@ public class EventBusImpl implements EventHandler, EventBusService {
         return observers;
     }
 
-    /**
-     * Handles the OSGi event admin event and notifies the interested observers.
-     *
-     * @param event the event to handle
-     */
-    @Override
-    public void handleEvent(Event event) {
+    public void fireEvent(Event event) {
         final String topic = event.getTopic();
-        final Collection<AnnotatedObserver> observers;
-
-        synchronized (this) {
-            observers = Collections.unmodifiableCollection(getOrCreateObserversForTopic(topic));
-        }
+        final Collection<AnnotatedObserver> observers = getOrCreateObserversForTopic(topic);
 
         for (AnnotatedObserver observer : observers) {
             try {
                 notifyIfInPlatformThread(observer, event);
                 notifyDefault(observer, event);
             } catch (Throwable throwable) {
+                // TODO we should notify someone about this error...new service (EventBusErrorService)
                 log.error("Exception notifying observer {} with event {}", observer, event, throwable);
             }
         }
-
     }
 
     protected void notifyIfInPlatformThread(AnnotatedObserver observer, Event event) throws Throwable {

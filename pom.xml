@@ -20,7 +20,7 @@
 
     <groupId>de.iew.stagediver.fx</groupId>
     <artifactId>eventbus</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <modules>
         <module>eventbus-api</module>
         <module>eventbus-core</module>
@@ -80,6 +80,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.java.source.version>7</project.java.source.version>
         <project.java.target.version>7</project.java.target.version>
+        <stagediverfx.version>0.1-SNAPSHOT</stagediverfx.version>
         <osgi.version>4.3.1</osgi.version>
     </properties>
 
@@ -89,12 +90,12 @@
             <dependency>
                 <groupId>de.iew.stagediver.fx</groupId>
                 <artifactId>eventbus-api</artifactId>
-                <version>0.1.0-SNAPSHOT</version>
+                <version>0.2.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>de.iew.stagediver.fx</groupId>
                 <artifactId>eventbus-core</artifactId>
-                <version>0.1.0-SNAPSHOT</version>
+                <version>0.2.0-SNAPSHOT</version>
             </dependency>
 
             <!--
@@ -125,6 +126,20 @@
                 <groupId>org.ops4j.pax.logging</groupId>
                 <artifactId>pax-logging-service</artifactId>
                 <version>1.7.1</version>
+            </dependency>
+
+            <!--
+            | Stagediver.fx Dependencies
+            -->
+            <dependency>
+                <groupId>de.qaware.stagediver.fx</groupId>
+                <artifactId>lookup</artifactId>
+                <version>${stagediverfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.qaware.stagediver.fx</groupId>
+                <artifactId>platform-non-osgi</artifactId>
+                <version>${stagediverfx.version}</version>
             </dependency>
 
             <!--
@@ -252,6 +267,11 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -262,6 +282,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
