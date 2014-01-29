@@ -26,11 +26,11 @@ import org.osgi.service.event.EventAdmin;
  * registers an instance of the {@link EventAdmin} implementation and the services from this library. You can use this
  * platform module in your own applications as follows:
  * <code>
- * Lookup.init(<Other platform modules>, new EventBusPlatformModule());
+ * Lookup.init(&lt;Other platform modules&gt;, new EventBusPlatformModule());
  * </code>
  * To fire an event you simply obtain a reference to the {@link EventAdmin}:
  * <code>
- * Event myEvent = <The OSGi event you want to fire>;
+ * Event myEvent = &lt;The OSGi event you want to fire%gt;
  * EventAdmin eventAdmin = lookup.lookup(EventAdmin.class);
  * eventAdmin.sendEvent(myEvent);
  * </code>
