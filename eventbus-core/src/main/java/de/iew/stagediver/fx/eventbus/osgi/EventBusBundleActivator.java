@@ -69,7 +69,8 @@ public class EventBusBundleActivator implements BundleActivator, ServiceListener
         this.eventAdminServiceReference = context.getServiceReference(EventAdmin.class);
         registerEventHandlerIfEventAdminIsAvailable(context);
 
-        context.addServiceListener(this, EventAdmin.class.getName());
+        final String filterString = String.format("(objectClass=%s)", EventAdmin.class.getName());
+        context.addServiceListener(this, filterString);
     }
 
     @Override
