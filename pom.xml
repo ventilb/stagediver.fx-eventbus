@@ -82,6 +82,7 @@
         <project.java.target.version>7</project.java.target.version>
         <stagediverfx.version>0.1-SNAPSHOT</stagediverfx.version>
         <osgi.version>4.3.1</osgi.version>
+        <de.iew.version>2.0.0-SNAPSHOT</de.iew.version>
     </properties>
 
     <dependencyManagement>
@@ -96,6 +97,12 @@
                 <groupId>de.iew.stagediver.fx</groupId>
                 <artifactId>eventbus-core</artifactId>
                 <version>0.2.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.iew</groupId>
+                <artifactId>iew-framework-core</artifactId>
+                <version>${de.iew.version}</version>
             </dependency>
 
             <!--
