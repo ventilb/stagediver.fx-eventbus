@@ -20,7 +20,7 @@
 
     <groupId>de.iew.stagediver.fx</groupId>
     <artifactId>eventbus</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.2.2-SNAPSHOT</version>
     <modules>
         <module>eventbus-api</module>
         <module>eventbus-core</module>
@@ -91,12 +91,12 @@
             <dependency>
                 <groupId>de.iew.stagediver.fx</groupId>
                 <artifactId>eventbus-api</artifactId>
-                <version>0.2.1-SNAPSHOT</version>
+                <version>0.2.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>de.iew.stagediver.fx</groupId>
                 <artifactId>eventbus-core</artifactId>
-                <version>0.2.1-SNAPSHOT</version>
+                <version>0.2.2-SNAPSHOT</version>
             </dependency>
 
             <dependency>

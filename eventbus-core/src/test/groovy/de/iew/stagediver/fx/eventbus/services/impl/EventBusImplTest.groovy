@@ -20,7 +20,6 @@ import de.iew.stagediver.fx.eventbus.api.Topic
 import org.hamcrest.collection.IsMapContaining
 import org.osgi.service.event.Event
 
-import static org.hamcrest.CoreMatchers.*
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize
 import static org.junit.Assert.assertThat
 

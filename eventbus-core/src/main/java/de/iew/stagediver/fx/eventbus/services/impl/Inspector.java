@@ -31,7 +31,7 @@ public class Inspector {
 
     public static void inspectAnnotatedObservers(final Object o, final Set<AnnotatedObserver> inspectedObservers) {
         final Class classToInspect = o.getClass();
-        final Method[] methods = classToInspect.getDeclaredMethods();
+        final Method[] methods = classToInspect.getMethods();
 
         for (Method method : methods) {
             if (method.isAnnotationPresent(Observer.class)) {
@@ -42,7 +42,7 @@ public class Inspector {
 
     public static void inspectAnnotatedObserverMethods(final Object o, final Set<Method> inspectedMethods) {
         final Class classToInspect = o.getClass();
-        final Method[] methods = classToInspect.getDeclaredMethods();
+        final Method[] methods = classToInspect.getMethods();
 
         for (Method method : methods) {
             if (method.isAnnotationPresent(Observer.class)) {
