@@ -17,11 +17,12 @@
 package de.iew.stagediver.fx.eventbus.services.impl
 
 import de.iew.stagediver.fx.eventbus.api.Topic
-import org.hamcrest.collection.IsMapContaining
 import org.osgi.service.event.Event
 
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize
-import static org.junit.Assert.assertThat
+import static org.hamcrest.MatcherAssert.assertThat
+import static org.hamcrest.Matchers.hasSize
+import static org.hamcrest.Matchers.is as IS
+import static org.hamcrest.Matchers.hasEntry
 
 /**
  * Unit-Tests for the {@link de.iew.stagediver.fx.eventbus.services.impl.EventBusImpl} implementation.
@@ -46,17 +47,17 @@ class EventBusImplTest extends GroovyTestCase {
         def notifyDefaultWasCalled = false
 
         def eventBus = [
-                notifyIfInPlatformThread: { observer, event -> notifyIfInPlatformThreadWasCalled = true },
-                notifyDefault: { observer, event -> notifyDefaultWasCalled = true },
+                notifyIfInPlatformThread    : { observer, event -> notifyIfInPlatformThreadWasCalled = true },
+                notifyDefault               : { observer, event -> notifyDefaultWasCalled = true },
                 getOrCreateObserversForTopic: { topic -> [obs1] }
         ] as EventBusImpl
-        eventBus.handleEvent(eventToFire)
+        eventBus.fireEvent(eventToFire)
 
         // Test auswerten
         /// Beide Dispatcher werden aufgerufen, weil die if-Anweisung der nicht greift, da wir die Methoden überladen
         /// haben.
-        assertThat(notifyIfInPlatformThreadWasCalled, is(true))
-        assertThat(notifyDefaultWasCalled, is(true))
+        assertThat(notifyIfInPlatformThreadWasCalled, IS(true))
+        assertThat(notifyDefaultWasCalled, IS(true))
     }
 
     void testHandleEvent() {
@@ -76,11 +77,11 @@ class EventBusImplTest extends GroovyTestCase {
         def EventBusImpl eventBus = [
                 getOrCreateObserversForTopic: { topic -> [obs1, obs2] }
         ] as EventBusImpl
-        eventBus.handleEvent(eventToFire)
+        eventBus.fireEvent(eventToFire)
 
         // Test auswerten
-        assertThat dispatchedEvents, IsMapContaining.hasEntry("testFixtureBean1", eventToFire)
-        assertThat dispatchedEvents, IsMapContaining.hasEntry("testFixtureBean2", eventToFire)
+        assertThat dispatchedEvents, hasEntry("testFixtureBean1", eventToFire)
+        assertThat dispatchedEvents, hasEntry("testFixtureBean2", eventToFire)
     }
 
     void testRegister() {

@@ -18,8 +18,9 @@ package de.iew.stagediver.fx.eventbus.services.impl
 
 import java.lang.reflect.Method
 
-import static org.hamcrest.CoreMatchers.notNullValue
-import static org.hamcrest.CoreMatchers.nullValue
+import static org.hamcrest.Matchers.notNullValue
+import static org.hamcrest.Matchers.nullValue
+import static org.hamcrest.Matchers.is as IS
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize
 
@@ -43,7 +44,7 @@ class InspectorTest extends GroovyTestCase {
         def actualNotifyInPlatformThread = Inspector.inspectObserverNotifyInPlatformThread(observer)
 
         // Test auswerten
-        assertThat actualNotifyInPlatformThread, is(true)
+        assertThat actualNotifyInPlatformThread, IS(true)
     }
 
     void testInspectObserverNotifyInPlatformThread_without_notification_in_platform_thread() {
@@ -55,7 +56,7 @@ class InspectorTest extends GroovyTestCase {
         def actualNotifyInPlatformThread = Inspector.inspectObserverNotifyInPlatformThread(observer)
 
         // Test auswerten
-        assertThat actualNotifyInPlatformThread, is(false)
+        assertThat actualNotifyInPlatformThread, IS(false)
     }
 
     void testInspectAnnotatedObservers() {
@@ -66,7 +67,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectAnnotatedObservers(testFixtureBean, observableMethods)
 
         // Test auswerten
-        assertThat observableMethods.size(), is(8)
+        assertThat observableMethods.size(), IS(8)
         assertThat observableMethods.findAll { m -> m.eventMethod.name == "aMethodReturning5WithAnnotation" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithAnnotatedTopic" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.eventMethod.name == "anObserverMethodWithObjectTopic" }, hasSize(1)
@@ -85,7 +86,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectAnnotatedObserverMethods(testFixtureBean, observableMethods)
 
         // Test auswerten
-        assertThat observableMethods.size(), is(8)
+        assertThat observableMethods.size(), IS(8)
         assertThat observableMethods.findAll { m -> m.name == "aMethodReturning5WithAnnotation" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithAnnotatedTopic" }, hasSize(1)
         assertThat observableMethods.findAll { m -> m.name == "anObserverMethodWithObjectTopic" }, hasSize(1)
@@ -104,8 +105,8 @@ class InspectorTest extends GroovyTestCase {
         de.iew.stagediver.fx.eventbus.api.Observer observer = Inspector.getObserverAnnotation(eventMethod)
 
         // Test auswerten
-        assertThat observer, is(notNullValue())
-        assertThat observer.topic(), is("TestFixtureBean.anObserverMethodWithAnnotatedTopic")
+        assertThat observer, IS(notNullValue())
+        assertThat observer.topic(), IS("TestFixtureBean.anObserverMethodWithAnnotatedTopic")
     }
 
     void testInspectObserverTopicByAnnotation() {
@@ -117,7 +118,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectObserverTopicByAnnotation(eventMethod, actualTopic)
 
         // Test auswerten
-        assertThat actualTopic[0], is("TestFixtureBean.anObserverMethodWithAnnotatedTopic")
+        assertThat actualTopic[0], IS("TestFixtureBean.anObserverMethodWithAnnotatedTopic")
     }
 
     void testInspectObserverTopicByAnnotation_dont_overwrite_determined_topic() {
@@ -131,7 +132,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectObserverTopicByAnnotation(eventMethod, actualTopic)
 
         // Test auswerten
-        assertThat actualTopic[0], is(alreadyDeterminedTopic)
+        assertThat actualTopic[0], IS(alreadyDeterminedTopic)
     }
 
     void testInspectObserverTopicByMethodSignature_with_object_topic() {
@@ -144,7 +145,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectObserverTopicByMethodSignature(eventMethod, actualTopic)
 
         // Test auswerten
-        assertThat actualTopic[0], is("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
+        assertThat actualTopic[0], IS("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
     }
 
     void testInspectObserverTopicByMethodSignature_with_array_topic() {
@@ -157,7 +158,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectObserverTopicByMethodSignature(eventMethod, actualTopic)
 
         // Test auswerten
-        assertThat actualTopic[0], is(nullValue())
+        assertThat actualTopic[0], IS(nullValue())
     }
 
     void testInspectObserverTopicByMethodSignature_with_primitive_topic() {
@@ -170,7 +171,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectObserverTopicByMethodSignature(eventMethod, actualTopic)
 
         // Test auswerten
-        assertThat actualTopic[0], is(nullValue())
+        assertThat actualTopic[0], IS(nullValue())
     }
 
     void testInspectObserverTopicByMethodSignature_dont_overwrite_determined_topic() {
@@ -184,7 +185,7 @@ class InspectorTest extends GroovyTestCase {
         Inspector.inspectObserverTopicByMethodSignature(eventMethod, actualTopic)
 
         // Test auswerten
-        assertThat actualTopic[0], is(alreadyDeterminedTopic)
+        assertThat actualTopic[0], IS(alreadyDeterminedTopic)
     }
 
     /**
@@ -199,7 +200,7 @@ class InspectorTest extends GroovyTestCase {
         def actualTopic = Inspector.inspectObserverTopic(observer)
 
         // Test auswerten
-        assertThat actualTopic, is("TestFixtureBean.anObserverMethodWithAnnotatedTopic")
+        assertThat actualTopic, IS("TestFixtureBean.anObserverMethodWithAnnotatedTopic")
     }
 
     /**
@@ -214,7 +215,7 @@ class InspectorTest extends GroovyTestCase {
         def actualTopic = Inspector.inspectObserverTopic(observer)
 
         // Test auswerten
-        assertThat actualTopic, is("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
+        assertThat actualTopic, IS("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
     }
 
     /**
@@ -228,7 +229,7 @@ class InspectorTest extends GroovyTestCase {
         def actualTopic = Inspector.inspectTopic(eventMethod)
 
         // Test auswerten
-        assertThat actualTopic, is("TestFixtureBean.anObserverMethodWithAnnotatedTopic")
+        assertThat actualTopic, IS("TestFixtureBean.anObserverMethodWithAnnotatedTopic")
     }
 
     /**
@@ -242,7 +243,7 @@ class InspectorTest extends GroovyTestCase {
         def actualTopic = Inspector.inspectTopic(eventMethod)
 
         // Test auswerten
-        assertThat actualTopic, is("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
+        assertThat actualTopic, IS("de/iew/stagediver/fx/eventbus/services/impl/TestTopic")
     }
 
     @Override
