@@ -143,13 +143,9 @@ public class Inspector {
         if (isNotBlank(topicHolder[0])) {
             return;
         }
-        final int parameterCount = eventMethod.getParameterCount();
-        final Class[] parameterTypes;
-        final Class parameterOfInterest;
-
-        if (parameterCount >= 1) {
-            parameterTypes = eventMethod.getParameterTypes();
-            parameterOfInterest = parameterTypes[0];
+        final Class[] parameterTypes = eventMethod.getParameterTypes();
+        if (parameterTypes.length > 0) {
+            final Class parameterOfInterest = parameterTypes[0];
 
             if (!parameterOfInterest.isArray()
                     && !parameterOfInterest.isPrimitive()) {
