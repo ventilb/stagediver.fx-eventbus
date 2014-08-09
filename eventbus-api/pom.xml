@@ -19,19 +19,24 @@
     <parent>
         <groupId>de.iew.stagediver.fx</groupId>
         <artifactId>eventbus</artifactId>
-        <version>0.2.2-SNAPSHOT</version>
+        <version>0.2.3-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.iew.stagediver.fx</groupId>
     <artifactId>eventbus-api</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
+    <version>0.2.3-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <name>stagediver.fx - IEW Eventbus API</name>
 
     <dependencies>
+
+        <dependency>
+            <groupId>de.iew</groupId>
+            <artifactId>iew-framework-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.osgi</groupId>
@@ -44,11 +49,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>de.iew</groupId>
-            <artifactId>iew-framework-core</artifactId>
-        </dependency>
-
     </dependencies>
     <build>
         <plugins>
@@ -58,6 +58,10 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
+                        <Import-Package>
+                            de.iew.framework.utils.*,
+                            org.osgi.*
+                        </Import-Package>
                         <Export-Package>
                             de.iew.stagediver.fx.eventbus.api.*,
                             de.iew.stagediver.fx.eventbus.event.*

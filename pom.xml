@@ -16,16 +16,17 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>de.iew.stagediver.fx</groupId>
-    <artifactId>eventbus</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
     <modules>
         <module>eventbus-api</module>
         <module>eventbus-core</module>
         <module>eventbus-full</module>
     </modules>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.iew.stagediver.fx</groupId>
+    <artifactId>eventbus</artifactId>
+    <version>0.2.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>stagediver.fx - IEW Eventbus</name>
@@ -91,12 +92,12 @@
             <dependency>
                 <groupId>de.iew.stagediver.fx</groupId>
                 <artifactId>eventbus-api</artifactId>
-                <version>0.2.2-SNAPSHOT</version>
+                <version>0.2.3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>de.iew.stagediver.fx</groupId>
                 <artifactId>eventbus-core</artifactId>
-                <version>0.2.2-SNAPSHOT</version>
+                <version>0.2.3-SNAPSHOT</version>
             </dependency>
 
             <dependency>
@@ -116,24 +117,6 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.5</version>
             </dependency>
-            <!--<dependency>-->
-                <!--&lt;!&ndash; license: MIT (http://slf4j.org/license.html) &ndash;&gt;-->
-                <!--<groupId>org.slf4j</groupId>-->
-                <!--<artifactId>slf4j-log4j12</artifactId>-->
-                <!--<version>1.7.5</version>-->
-            <!--</dependency>-->
-            <dependency>
-                <!-- license: Apache 2.0 (https://github.com/ops4j/org.ops4j.pax.logging/blob/master/LICENSE.txt) -->
-                <groupId>org.ops4j.pax.logging</groupId>
-                <artifactId>pax-logging-api</artifactId>
-                <version>1.7.1</version>
-            </dependency>
-            <dependency>
-                <!-- license: Apache 2.0 (https://github.com/ops4j/org.ops4j.pax.logging/blob/master/LICENSE.txt) -->
-                <groupId>org.ops4j.pax.logging</groupId>
-                <artifactId>pax-logging-service</artifactId>
-                <version>1.7.1</version>
-            </dependency>
 
             <!--
             | Stagediver.fx Dependencies
@@ -147,22 +130,6 @@
                 <groupId>de.qaware.stagediver.fx</groupId>
                 <artifactId>platform-non-osgi</artifactId>
                 <version>${stagediverfx.version}</version>
-            </dependency>
-
-            <!--
-            | Build Dependencies - Felix
-            -->
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.scr.annotations</artifactId>
-                <version>1.9.6</version>
-                <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.eventadmin</artifactId>
-                <version>1.3.2</version>
-                <scope>provided</scope>
             </dependency>
 
             <!--
