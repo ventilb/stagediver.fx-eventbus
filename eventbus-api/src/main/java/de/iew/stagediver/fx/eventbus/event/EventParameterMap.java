@@ -45,4 +45,16 @@ public class EventParameterMap<T> extends HashMap<String, T> implements Serializ
         put(property, value);
         return this;
     }
+
+    /**
+     * Many use cases just put a few values into a parameter map. This method shortes the creation of such maps because
+     * you can provide the first property / value pair at construction time.
+     *
+     * @param property Not NULL property name
+     * @param value    The value to add (Can be NULL)
+     * @return The created parameter map
+     */
+    public static EventParameterMap<Object> create(String property, Object value) {
+        return new EventParameterMap<>().add(property, value);
+    }
 }
