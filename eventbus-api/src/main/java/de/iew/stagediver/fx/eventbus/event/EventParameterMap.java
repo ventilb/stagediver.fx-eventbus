@@ -20,6 +20,7 @@ import de.iew.framework.utils.Assert;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implements a simple extension of {@link java.util.HashMap} to provide a fluent interface to build parameter maps
@@ -39,7 +40,7 @@ public class EventParameterMap<T> extends HashMap<String, T> implements Serializ
      * @param value    The value to add (Can be NULL)
      * @return This parameter map for fluent interface
      */
-    public EventParameterMap add(String property, T value) {
+    public EventParameterMap<T> add(final String property, final T value) {
         Assert.assertMethodParameterIsNotNull(property);
 
         put(property, value);
@@ -47,14 +48,47 @@ public class EventParameterMap<T> extends HashMap<String, T> implements Serializ
     }
 
     /**
-     * Many use cases just put a few values into a parameter map. This method shortes the creation of such maps because
+     * Adds all properties of the specified map into this parameter map.
+     *
+     * @param properties The properties to add
+     * @return This parameter map for fluent interface
+     */
+    public EventParameterMap<T> putProperties(final Map<String, T> properties) {
+        if (properties != null) {
+            putAll(properties);
+        }
+        return this;
+    }
+
+    /**
+     * Many use cases just put a few values into a parameter map. This method shortens the creation of such maps because
      * you can provide the first property / value pair at construction time.
      *
      * @param property Not NULL property name
      * @param value    The value to add (Can be NULL)
      * @return The created parameter map
      */
-    public static EventParameterMap<Object> create(String property, Object value) {
-        return new EventParameterMap<>().add(property, value);
+    public static EventParameterMap<Object> create(final String property, final Object value) {
+        return create().add(property, value);
+    }
+
+    /**
+     * Many use cases just put a few values into a parameter map. This method creates an empty parameter map.
+     *
+     * @return The created parameter map
+     */
+    public static EventParameterMap<Object> create() {
+        return new EventParameterMap<>();
+    }
+
+    /**
+     * Many use cases just put a few values into a parameter map. This method shortens the creation of such maps because
+     * you can put a map of properties at construction time.
+     *
+     * @param properties the map of properties
+     * @return The created parameter map
+     */
+    public static EventParameterMap<Object> create(final Map<String, Object> properties) {
+        return create().putProperties(properties);
     }
 }

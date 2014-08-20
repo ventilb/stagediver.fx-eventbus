@@ -142,6 +142,7 @@ public class EventBusImpl implements EventBusService {
     public void fireEvent(Event event) {
         final String topic = event.getTopic();
         final Collection<AnnotatedObserver> observers = getOrCreateObserversForTopic(topic);
+        observers.addAll(getOrCreateObserversForTopic(Topic.ALL_TOPICS));
 
         for (AnnotatedObserver observer : observers) {
             try {
