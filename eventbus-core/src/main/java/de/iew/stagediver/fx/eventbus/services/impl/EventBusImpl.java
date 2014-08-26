@@ -19,7 +19,9 @@ package de.iew.stagediver.fx.eventbus.services.impl;
 import de.iew.stagediver.fx.eventbus.api.EventBusService;
 import de.iew.stagediver.fx.eventbus.api.Topic;
 import javafx.application.Platform;
+import org.apache.commons.beanutils.MethodUtils;
 import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +59,17 @@ public class EventBusImpl implements EventBusService {
     }
 
     @Override
+    public synchronized void register(String topic, EventHandler eventHandler) {
+        final Method eventHandlerMethod = MethodUtils.getAccessibleMethod(eventHandler.getClass(), "handleEvent", Event.class);
+
+        final AnnotatedObserver ao = new AnnotatedObserver(eventHandler, eventHandlerMethod);
+        ao.setTopic(topic);
+
+        final Collection<AnnotatedObserver> topicObservers = getOrCreateObserversForTopic(topic);
+        topicObservers.add(ao);
+    }
+
+    @Override
     public synchronized void unregister(Object o) {
         final Set<AnnotatedObserver> annotatedObservers = new HashSet<>();
         Inspector.inspectAnnotatedObservers(o, annotatedObservers);
@@ -67,6 +80,17 @@ public class EventBusImpl implements EventBusService {
             topic = getTopicIfInspectionWasNull(topic);
 
             removeObserver(topic, ao);
+        }
+    }
+
+    @Override
+    public synchronized void unregister(String topic, EventHandler eventHandler) {
+        final Collection<AnnotatedObserver> observersForTopic = getObserversForTopic(topic);
+
+        for (AnnotatedObserver annotatedObserver : observersForTopic) {
+            if (annotatedObserver.equals(eventHandler)) {
+                removeObserver(topic, annotatedObserver);
+            }
         }
     }
 
@@ -120,7 +144,11 @@ public class EventBusImpl implements EventBusService {
      * @return the observers or NULL
      */
     public synchronized Collection<AnnotatedObserver> getObserversForTopic(final String topic) {
-        return this.observers.get(topic);
+        if (this.observers.containsKey(topic)) {
+            return new HashSet<>(this.observers.get(topic));
+        } else {
+            return null;
+        }
     }
 
     /**

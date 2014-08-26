@@ -16,6 +16,8 @@
 
 package de.iew.stagediver.fx.eventbus.api;
 
+import org.osgi.service.event.EventHandler;
+
 /**
  * Declares a service interface to implement an event bus.
  *
@@ -35,6 +37,8 @@ public interface EventBusService {
      */
     public void register(Object o);
 
+    public void register(String topic, EventHandler eventHandler);
+
     /**
      * Removes the specified object from this event bus.
      * <p>
@@ -45,4 +49,5 @@ public interface EventBusService {
      */
     public void unregister(Object o);
 
+    public void unregister(String topic, EventHandler eventHandler);
 }
