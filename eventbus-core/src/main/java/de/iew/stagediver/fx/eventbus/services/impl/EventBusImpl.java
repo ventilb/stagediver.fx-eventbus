@@ -145,7 +145,7 @@ public class EventBusImpl implements EventBusService {
      */
     public synchronized Collection<AnnotatedObserver> getObserversForTopic(final String topic) {
         if (this.observers.containsKey(topic)) {
-            return new HashSet<>(this.observers.get(topic));
+            return this.observers.get(topic);
         } else {
             return null;
         }
